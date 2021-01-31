@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DroidScript</string>
+    <string name="action_settings">Settings</string>
+    <string name="wifisettings">wifi Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="accessibility_service_description">Script Generator</string>
+</resources>
