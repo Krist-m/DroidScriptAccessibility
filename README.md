@@ -3,4 +3,5 @@ Accessibility service which can be installed on Androd device, this server helps
 
 
 <iframe witdth='560' height='315' src='https://youtu.be/WeFCZzkfn4c' frameborder='0' allowfullscreen/>
-[![Pipulate youtube playlist](https://youtu.be/WeFCZzkfn4c)]
+
+[![Pipulate YouTube Playlist](https://youtu.be/WeFCZzkfn4c)]
