@@ -1,6 +1,5 @@
 # DroidScriptAccessibility
-Accessibility service which can be installed on Androd device, this server helps in watching the screen actios like clicks, text types window changes etc, this is service is basically used for Recard and Play tool
-
+An application that can be install on Android phone, the purpose of this applicaiton is a service records the screen Actions like clicks, text types window changes, Notification, Drags etc, this is service is basically used for Recard and Play tool pupose
 
 YouTube Video: https://youtu.be/WeFCZzkfn4c
 
