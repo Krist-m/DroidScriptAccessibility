@@ -3,23 +3,25 @@ package com.sample.droidscript;
 import android.util.Log;
 
 public class ScriptLogger {
-    public static final int INST_CHCECKBOX_LEFT_SIDE = 12;
-    public static final int INST_CHCECKBOX_RIGHT_SIDE = 11;
-    public static final int INST_CHECKBOX_CLICK = 6;
-    public static final int INST_CLICK = 3;
+
     public static final int INST_GOTO_HOME = 0;
-    public static final int INST_NOTIFICATION = 7;
-    public static final int INST_PRESS_BACK = 1;
-    public static final int INST_PRESS_MENU = 2;
-    public static final int INST_START_ACTIVITY = 10;
-    public static final int INST_STATUSBAR_CLOSE = 9;
-    public static final int INST_STATUSBAR_OPEN = 8;
-    public static final int INST_TOAST = 5;
-    public static final int INST_TYPE = 4;
+    public static final int INST_PRESS_BACK = INST_GOTO_HOME + 1;
+    public static final int INST_PRESS_MENU = INST_PRESS_BACK + 1;
+    public static final int INST_CLICK = INST_PRESS_MENU + 1;
+    public static final int INST_TYPE = INST_CLICK + 1;
+    public static final int INST_TOAST = INST_TYPE + 1;
+    public static final int INST_CHECKBOX_CLICK = INST_TOAST + 1;
+    public static final int INST_NOTIFICATION = INST_CHECKBOX_CLICK + 1;
+    public static final int INST_STATUSBAR_OPEN = INST_NOTIFICATION + 1;
+    public static final int INST_STATUSBAR_CLOSE = INST_STATUSBAR_OPEN + 1;
+    public static final int INST_START_ACTIVITY = INST_STATUSBAR_CLOSE + 1;
+    public static final int INST_CHCECKBOX_RIGHT_SIDE = INST_START_ACTIVITY + 1;
+    public static final int INST_CHCECKBOX_LEFT_SIDE = INST_CHCECKBOX_RIGHT_SIDE + 1;
+
     private static final String LOG_TAG = "Script+";
 
     public static void logkeyword(String keyword) {
-        Log.v(LOG_TAG, "def " + keyword + "(self):");
+        //Log.v(LOG_TAG, keyword);
     }
 
     public static void logWindowStateChange() {
