@@ -30,41 +30,31 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+
 import java.util.List;
 
+
+/*
+    AccessibilityService  used to fetch the screen action that is being performed by the user
+    this is the service with will running on the android device for recard actions
+ */
 public class DroidScriptService extends AccessibilityService implements View.OnTouchListener {
+    private static final String TAG = "DroidScriptService";
     private static final String AUTO_COMPLETE_TEXT_VIEW_DROP_DOWN_CLASS_NAME = "DropDownListView";
     private static final String HANDLE_VIEW_CLASS_NAME = "com.android.launcher.HandleView";
     private static final String ICON_MENU_VIEW_CLASS_NAME = "com.android.internal.view.menu.IconMenuView";
-    static final int INTERRUPTIBLE = 1;
     private static final String LAUNCHER_SCREEN = "com.sec.android.app.launcher";
     private static final String LOG_TAG = "Script+";
     private static final String LOG_TAG2 = "Script";
-    private static final int NONE_PENDING = 0;
     private static final String SOFT_INPUT_WINDOW_CLASS_NAME = "android.inputmethodservice.SoftInputWindow";
     private static final String SPACE = " ";
-    private static final int STATUSBAR_CLOSE_PENDING = 2;
     private static final String STATUS_BAR_EXPANDED_DIALOG_CLASS_NAME = "com.android.systemui";
-    private static final int TEXT_EDIT_PENDING = 1;
     private static NotificationPanal sNotificationPanal = new NotificationPanal();
 
-    /* renamed from: b */
-    Button f1b;
-    LayoutInflater inflate;
-    private String mCompoundButtonNotSelected;
-    private String mCompoundButtonSelected;
-    private String mCurPN;
     private boolean mIsOnLauncher;
-    private WindowManager.LayoutParams mLayoutParams;
     private int mPendingEventList;
     private Selector mPevSelector;
-    private Object mPrevPN;
     private String mTypedtext;
-    private WindowManager mWindowManager;
-    View myView;
-
-    /* renamed from: t */
-    TextView f2t;
 
     public void onCreate() {
         super.onCreate();
@@ -82,155 +72,57 @@ public class DroidScriptService extends AccessibilityService implements View.OnT
         info.notificationTimeout = 20;
         info.flags = 121;
         setServiceInfo(info);
-        this.mWindowManager = (WindowManager) getSystemService("window");
-        this.mLayoutParams = new WindowManager.LayoutParams(
-                -2,
-                -2,
-                WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-                        | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                PixelFormat.TRANSLUCENT);
-        this.myView = ((LayoutInflater) getSystemService("layout_inflater")).inflate(R.layout.my_layout, (ViewGroup) null);
-        this.myView.setOnTouchListener(this);
-        this.mWindowManager.addView(this.myView, this.mLayoutParams);
         Log.w(LOG_TAG2, "$$$$$$$ Script Generator started $$$$$$$");
     }
 
     public void onDestroy() {
         Log.w(LOG_TAG2, "$$$$$$$ Script Generator ended $$$$$$$");
-        this.mWindowManager.removeView(this.myView);
         super.onDestroy();
     }
 
-    /* JADX WARNING: Can't fix incorrect switch cases order */
-    /* Code decompiled incorrectly, please refer to instructions dump. */
+
     public synchronized void onAccessibilityEvent(android.view.accessibility.AccessibilityEvent accessibilityEvent) {
 
-        /*
-            r5 = this;
-            monitor-enter(r5)
-            if (r6 != 0) goto L_0x000c
-            java.lang.String r2 = "Script"
-            java.lang.String r3 = "Received null accessibility event."
-            android.util.Log.e(r2, r3)     // Catch:{ all -> 0x0035 }
-        L_0x000a:
-            monitor-exit(r5)
-            return
-        L_0x000c:
-            int r1 = r6.getEventType()     // Catch:{ all -> 0x0035 }
-            r2 = 2048(0x800, float:2.87E-42)
-            if (r1 == r2) goto L_0x000a
-            switch(r1) {
-                case 1: goto L_0x0068;
-                case 4: goto L_0x0050;
-                case 8: goto L_0x0038;
-                case 16: goto L_0x00b2;
-                case 32: goto L_0x0080;
-                case 64: goto L_0x00cb;
-                case 4096: goto L_0x00e4;
-                case 4194304: goto L_0x0099;
-                default: goto L_0x0017;
-            }
-        L_0x0017:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "event type "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x002c:
-            r0 = move-exception
-            java.lang.String r2 = "Script+"
-            java.lang.String r3 = "#UNABLE TO GENERATE INSTRUCTON NOTIFY TO SCRIPTZEN TEAM"
-            android.util.Log.w(r2, r3)     // Catch:{ all -> 0x0035 }
-            goto L_0x000a
-        L_0x0035:
-            r2 = move-exception
-            monitor-exit(r5)
-            throw r2
-        L_0x0038:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_VIEW_FOCUSED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            r5.processAccessibilityEventViewFocusedType(r6)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x0050:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_VIEW_SELECTED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            r5.processAccessibilityEventViewSelectedType(r6)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x0068:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_VIEW_CLICKED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            r5.processAccessibilityEventViewClickedType(r6)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x0080:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_WINDOW_STATE_CHANGED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            r5.processAccessibilityEventWindowStateChangedType(r6)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x0099:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_WINDOW_STATE_CHANGED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            r5.processAccessibilityEventWindowChangedType(r6)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x00b2:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_VIEW_TEXT_CHANGED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            r5.processAccessibilityEventViewTextChangedType(r6)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x00cb:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_NOTIFICATION_STATE_CHANGED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            r5.processAccessibilityEventNotificationStateChangedType(r6)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
-        L_0x00e4:
-            java.lang.String r2 = "Script"
-            java.lang.StringBuilder r3 = new java.lang.StringBuilder     // Catch:{ Exception -> 0x002c }
-            java.lang.String r4 = "TYPE_VIEW_SCROLLED "
-            r3.<init>(r4)     // Catch:{ Exception -> 0x002c }
-            java.lang.StringBuilder r3 = r3.append(r1)     // Catch:{ Exception -> 0x002c }
-            java.lang.String r3 = r3.toString()     // Catch:{ Exception -> 0x002c }
-            android.util.Log.w(r2, r3)     // Catch:{ Exception -> 0x002c }
-            goto L_0x000a
+        if (accessibilityEvent == null) {
+            Log.i(LOG_TAG2, "Received null accessibility event.");
+            return;
+        }
 
-        throw new UnsupportedOperationException("Method not decompiled: com.robodroid.scriptzen.ScriptZenService.onAccessibilityEvent(android.view.accessibility.AccessibilityEvent):void");*/
+        int r1 = accessibilityEvent.getEventType();
+        String sr1 = Integer.toHexString(r1);
+        switch (r1) {
+            case 1:
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_CLICKED " + sr1);
+                processAccessibilityEventViewClickedType(accessibilityEvent);
+                break;
+            case 4:
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_SELECTED " + sr1);
+                processAccessibilityEventViewSelectedType(accessibilityEvent);
+                break;
+            case 8:
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_FOCUSED " + sr1);
+                processAccessibilityEventViewSelectedType(accessibilityEvent);
+            case 16:
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_TEXT_CHANGED " + sr1);
+                processAccessibilityEventViewSelectedType(accessibilityEvent);
+                break;
+            case 32:
+                android.util.Log.w(LOG_TAG2, "TYPE_WINDOW_STATE_CHANGED " + sr1);
+                processAccessibilityEventViewSelectedType(accessibilityEvent);
+                break;
+            case 64:
+                android.util.Log.w(LOG_TAG2, "TYPE_NOTIFICATION_STATE_CHANGED " + sr1);
+                processAccessibilityEventViewSelectedType(accessibilityEvent);
+                break;
+            case 4096:
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_SCROLLED " + sr1);
+                processAccessibilityEventViewSelectedType(accessibilityEvent);
+                break;
+            default:
+                android.util.Log.w(LOG_TAG2, "event type " + sr1);
+                //processAccessibilityEventViewSelectedType(accessibilityEvent);
+        }
+
     }
 
     public void checkForActivityLaunch(AccessibilityEvent event) {
@@ -431,19 +323,6 @@ public class DroidScriptService extends AccessibilityService implements View.OnT
 
     private void scriptListViewOrWebViewSelected(AccessibilityEvent event) {
         scriptViewFocusedOrSelectedContent(event);
-    }
-
-    private CharSequence removeStateSegment(List<CharSequence> text) {
-        int count = text.size();
-        for (int i = 0; i < count; i++) {
-            CharSequence segment = text.get(i);
-            if (segment.equals(this.mCompoundButtonNotSelected) || segment.equals(this.mCompoundButtonSelected)) {
-                CharSequence charSequence = text.get(i);
-                text.remove(i);
-                return charSequence;
-            }
-        }
-        return null;
     }
 
     private void processAccessibilityEventNotificationStateChangedType(AccessibilityEvent event) {
