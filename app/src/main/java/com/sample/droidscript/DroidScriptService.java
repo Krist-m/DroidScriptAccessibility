@@ -88,38 +88,38 @@ public class DroidScriptService extends AccessibilityService implements View.OnT
             return;
         }
 
-        int r1 = accessibilityEvent.getEventType();
-        String sr1 = Integer.toHexString(r1);
-        switch (r1) {
+        int eventType = accessibilityEvent.getEventType();
+        String eventId = Integer.toHexString(eventType);
+        switch (eventType) {
             case 1:
-                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_CLICKED " + sr1);
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_CLICKED " + eventId);
                 processAccessibilityEventViewClickedType(accessibilityEvent);
                 break;
             case 4:
-                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_SELECTED " + sr1);
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_SELECTED " + eventId);
                 processAccessibilityEventViewSelectedType(accessibilityEvent);
                 break;
             case 8:
-                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_FOCUSED " + sr1);
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_FOCUSED " + eventId);
                 processAccessibilityEventViewSelectedType(accessibilityEvent);
             case 16:
-                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_TEXT_CHANGED " + sr1);
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_TEXT_CHANGED " + eventId);
                 processAccessibilityEventViewSelectedType(accessibilityEvent);
                 break;
             case 32:
-                android.util.Log.w(LOG_TAG2, "TYPE_WINDOW_STATE_CHANGED " + sr1);
+                android.util.Log.w(LOG_TAG2, "TYPE_WINDOW_STATE_CHANGED " + eventId);
                 processAccessibilityEventViewSelectedType(accessibilityEvent);
                 break;
             case 64:
-                android.util.Log.w(LOG_TAG2, "TYPE_NOTIFICATION_STATE_CHANGED " + sr1);
+                android.util.Log.w(LOG_TAG2, "TYPE_NOTIFICATION_STATE_CHANGED " + eventId);
                 processAccessibilityEventViewSelectedType(accessibilityEvent);
                 break;
             case 4096:
-                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_SCROLLED " + sr1);
+                android.util.Log.w(LOG_TAG2, "TYPE_VIEW_SCROLLED " + eventId);
                 processAccessibilityEventViewSelectedType(accessibilityEvent);
                 break;
             default:
-                android.util.Log.w(LOG_TAG2, "event type " + sr1);
+                android.util.Log.w(LOG_TAG2, "event type " + eventId);
                 //processAccessibilityEventViewSelectedType(accessibilityEvent);
         }
 
@@ -202,7 +202,7 @@ public class DroidScriptService extends AccessibilityService implements View.OnT
         }
         if (curEventType == 8 || curEventType == 1) {
             if (this.mPevSelector.isPassword()) {
-                this.mTypedtext = "[@@EPW@@]";
+                this.mTypedtext = "[@@EPW@@]"; //mock password
             }
             if (this.mTypedtext != null) {
                 this.mTypedtext = null;
@@ -352,10 +352,10 @@ public class DroidScriptService extends AccessibilityService implements View.OnT
         Log.e(LOG_TAG2, "scriptNotification ");
         Parcelable data = event.getParcelableData();
         if (data instanceof Notification) {
-            Log.d(LOG_TAG2, "Recieved notification");
+            Log.d(LOG_TAG2, "Received notification");
             Notification notification = (Notification) data;
             Log.d(LOG_TAG2, "ticker: " + notification.tickerText);
-            Log.d(LOG_TAG2, "icon: " + notification.icon);
+            //Log.d(LOG_TAG2, "icon: " + notification.icon);
             String s = event.getText().toString().replace("[", "").replace("]", "");
             if (s.length() > 0) {
                 Log.d(LOG_TAG2, "notification: " + Integer.toString(s.length()));
