@@ -38,34 +38,34 @@ public class ScriptLogger {
 
     public static void loginst(int event, String... args) {
         switch (event) {
-            case 0:
+            case INST_GOTO_HOME:
                 Log.v(LOG_TAG, "self.goto_home()");
                 return;
-            case 1:
+            case INST_PRESS_BACK:
                 Log.v(LOG_TAG, "self.press_back()");
                 return;
-            case 2:
+            case INST_PRESS_MENU:
                 Log.v(LOG_TAG, "self.press_menu()");
                 return;
-            case 3:
+            case INST_CLICK:
                 Log.v(LOG_TAG, "self.view(" + args[0] + ").click()");
                 return;
-            case 4:
+            case INST_TYPE:
                 Log.v(LOG_TAG, "self.view(" + args[0] + ").type(\"" + args[1] + "\")");
                 return;
-            case 5:
+            case INST_CHECKBOX_CLICK:
                 Log.v(LOG_TAG, "#self.check_toast(\"" + args[0] + "\", self.get_toast())");
                 return;
-            case 7:
+            case INST_NOTIFICATION:
                 Log.v(LOG_TAG, "#self.is_notification_exist(\"" + args[0] + "\")");
                 return;
-            case 8:
+            case INST_STATUSBAR_OPEN:
                 Log.v(LOG_TAG, "self.open_status_bar()");
                 return;
-            case 9:
+            case INST_STATUSBAR_CLOSE:
                 Log.v(LOG_TAG, "self.close_status_bar()");
                 return;
-            case 10:
+            case INST_START_ACTIVITY:
                 Log.v(LOG_TAG, "self.start_activity( '" + args[0] + "', '" + args[0] + "' )");
                 return;
             case INST_CHCECKBOX_RIGHT_SIDE /*11*/:
